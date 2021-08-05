@@ -2,6 +2,8 @@
 //THE TEST SERVER IS RUNNING ON LOCALHOST:3000//
 ////////////////////////////////////////////////
 
+
+
 // PROBLEM 1
 /*
     In the index.html file in this folder there is a button with an id of 'say-hello-button'!
@@ -10,7 +12,7 @@
 */
 
 // CODE HERE
-let sayHelloButton = document.querySelector("#say-hello-button")
+let sayHelloButton = document.querySelector("#say-hello-button");
 
 
 // PROBLEM 2
@@ -21,7 +23,13 @@ let sayHelloButton = document.querySelector("#say-hello-button")
 */
 
 // CODE HERE
+function Invert(){
+    sayHelloButton.style.backgroundColor = "black";//I don't think this works
+    sayHelloButton.style.color = "white";
+    console.log("invert");
 
+}
+sayHelloButton.addEventListener('mouseover',Invert);
 
 // PROBLEM 3
 /*
@@ -33,7 +41,12 @@ let sayHelloButton = document.querySelector("#say-hello-button")
 */
 
 // CODE HERE
-
+function Revert(){
+    sayHelloButton.style.backgroundColor = "#EFEFEF";//I don't think this works
+    sayHelloButton.style.color = "black";
+    console.log("revert")
+}
+sayHelloButton.addEventListener("mouseout",Revert);
 
 // PROBLEM 4
 /*
@@ -54,6 +67,7 @@ const sayHello = () => {
 // DO NOT EDIT FUNCTION
 
 // CODE HERE
+sayHelloButton.addEventListener('click',sayHello);
 
 
 // PROBLEM 5 
@@ -66,9 +80,15 @@ const sayHello = () => {
     
     Handle the promise that's returned with a .then, which you should pass a callback function to. Inside the callback function, console.log the response's data (in the intermediate instructions we'll come back to this function and add HTML).
 */ 
-
+const baseURL = "http://localhost:3000";
 const ohMy = () => {
     // YOUR CODE HERE
+    axios.get(`${baseURL}/animals`)
+        .then(response =>{
+            console.log("YYYYYYYYYYY");
+            console.log(response.data);
+        })
+        
 }
 
 document.getElementById('animals-button').addEventListener('click', ohMy)
@@ -87,10 +107,19 @@ document.getElementById('animals-button').addEventListener('click', ohMy)
     We'll be updating this function in the next problem.
 */
 
-const repeatMyParam = () => {
+const repeatMyParam = (event) => {
     //YOUR CODE HERE
-}
+    //event.preventDefault();
+    axios.get(`${baseURL}/repeat/${"whatever-we-want"}`)
+        .then(response =>{
+            //console.log("REP")
+            console.log(response.data);
+            //??are we supposed to put it into a div?
+            document.getElementById("repeat-text").textContent = response.data;
+        })
 
+}
+    document.getElementById('repeat-button').addEventListener('click',repeatMyParam);
 // PROBLEM 7
 /*
     Now that we have the response data, let's add it to our web page! 
@@ -99,6 +128,7 @@ const repeatMyParam = () => {
 */
 
 // Code in the repeatMyParam function above
+
 
 
 
@@ -112,7 +142,13 @@ const repeatMyParam = () => {
 */
 
 // CODE HERE
-
+function QTest(){
+    axios.get(`${baseURL}/query-test/?Myquery`)
+        .then(response=>{
+            console.log(response.data);
+        })
+}
+document.getElementById("query-button").addEventListener('click',QTest);
 
 
 ////////////////
