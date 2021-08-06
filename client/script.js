@@ -2,8 +2,6 @@
 //THE TEST SERVER IS RUNNING ON LOCALHOST:3000//
 ////////////////////////////////////////////////
 
-
-
 // PROBLEM 1
 /*
     In the index.html file in this folder there is a button with an id of 'say-hello-button'!
@@ -85,13 +83,20 @@ const ohMy = () => {
     // YOUR CODE HERE
     axios.get(`${baseURL}/animals`)
         .then(response =>{
-            console.log("YYYYYYYYYYY");
-            console.log(response.data);
+            //console.log("YYYYYYYYYYY");
+            for(let i = 0; i< response.data.length; i++){
+                //console.log(response.data[i])
+                let animal = document.createElement("p");
+                animal.textContent = response.data[i];
+                document.querySelector("body").appendChild(animal);
+                
+            }
+            
         })
         
 }
 
-document.getElementById('animals-button').addEventListener('click', ohMy)
+document.getElementById('animals-button').addEventListener('click', ohMy);
 
 
 // PROBLEM 6 
@@ -143,7 +148,7 @@ const repeatMyParam = (event) => {
 
 // CODE HERE
 function QTest(){
-    axios.get(`${baseURL}/query-test/?Myquery`)
+    axios.get(`${baseURL}/query-test/?Q1/?aiodhffapidofha`)
         .then(response=>{
             console.log(response.data);
         })
@@ -168,9 +173,9 @@ document.getElementById("query-button").addEventListener('click',QTest);
 /*
     In the function that you wrote for Problem 8, change the URL to test a couple different scenarios. 
 
-    1: Send no queries on the URL -- what happened? 
+    1: Send no queries on the URL -- what happened? console log "no query was sent"
 
-    2: Send more than 1 query on the URL -- what happened? 
+    2: Send more than 1 query on the URL -- what happened?  You sent query: Q1/?aiodhffapidofha with value: !/ It was not a real query
 */
 
 // Edit code in Problem 8
@@ -201,3 +206,24 @@ document.getElementById("query-button").addEventListener('click',QTest);
 */
 
 // CODE HERE 
+function createFood(event){
+    event.preventDefault();
+    let foodInput = document.querySelector("input").value
+    //console.log(foodInput);
+    let body = {
+        "newFood" : foodInput
+    }
+    axios.post(`${baseURL}/food`,body)
+        .then(response=>{
+            console.log(response.data)
+            
+            let food = document.createElement("p");
+            food.textContent = foodInput;
+            document.querySelector("body").appendChild(food);
+            document.querySelector("input").value = "";
+            
+        });
+
+        
+}
+document.querySelector("form").addEventListener("submit",createFood)
